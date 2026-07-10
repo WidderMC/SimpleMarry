@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "widder.marry.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ServerPlayerMixin",
+		"PlayerMixin",
+		"NameTagMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
