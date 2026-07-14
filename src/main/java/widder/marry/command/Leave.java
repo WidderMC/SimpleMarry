@@ -4,10 +4,9 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 
-public class Color {
-
-    public static int color(CommandContext<CommandSourceStack> context) {
-        context.getSource().sendSuccess(() -> Component.literal("Color"), false);
+public class Leave {
+    public static int leave(CommandContext<CommandSourceStack> context) {
+        context.getSource().sendSuccess(() -> Component.literal("Leave"),false);
         return 1;
     }
 }
