@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 
 import static widder.marry.command.Request.RequestMap;
 
-public class List {
+public class ListCommand {
 
     public static int list(CommandContext<CommandSourceStack> context) {
 
@@ -18,4 +18,5 @@ public class List {
         context.getSource().sendSuccess(() -> Component.literal("List"), false);
         return 1;
     }
+
 }

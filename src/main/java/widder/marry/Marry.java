@@ -6,9 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import widder.marry.command.CommandRegistration;
-import widder.marry.untils.Load;
-
-import java.util.UUID;
+import widder.marry.utils.JsonDataManager;
 
 import static widder.marry.command.Request.RequestMap;
 
@@ -19,8 +17,8 @@ public class Marry implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-		//Load Data
-		Load.LoadData();
+		//JasonDataManager to create jason file and save stuff
+		JsonDataManager.load();
 
 		//RegistCommands
 		CommandRegistration.RegistCommand();
@@ -36,7 +34,7 @@ public class Marry implements ModInitializer {
 		});
 
 
-
+		//Print Info after everything is loaded
 		LOGGER.info("Marry Mod Successfully loaded");
 	}
 }
