@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class JsonDataManager {
     private static final Path CONFIG_DIR  = FabricLoader.getInstance().getConfigDir().resolve(Marry.MOD_ID);
@@ -59,25 +58,25 @@ public class JsonDataManager {
     }
 
     //Add Marriage to list
-    public static void addMarriage(UUID p1, UUID p2, String color) {
+    public static void addMarriage(String p1, String p2, String color) {
         marriages.add(new MarriageData(p1,p2,color));
         save();
     }
 
     //Remove Marriage from list
-    public static boolean removeMarriageByPlayer(UUID player) {
+    public static boolean removeMarriageByPlayer(String player) {
         boolean remove = marriages.removeIf(m -> m.involves(player));
         if (remove) save();
         return remove;
     }
 
     //Test if Player is in a Marriage
-    public static boolean isMarried(UUID player) {
+    public static boolean isMarried(String player) {
         return getMarriage(player) != null;
     }
 
     //Get Player Marriage Array
-    public static MarriageData getMarriage(UUID player) {
+    public static MarriageData getMarriage(String player) {
         for (MarriageData m : marriages) {
             if (m.involves(player)) return m;
         }
@@ -85,7 +84,7 @@ public class JsonDataManager {
     }
 
     //Get Player color
-    public static String getColor(UUID player) {
+    public static String getColor(String player) {
         MarriageData m = getMarriage(player);
         if (m != null) {
             return m.color;
@@ -95,7 +94,7 @@ public class JsonDataManager {
     }
 
     //get TextColor from Player
-    public static TextColor getTextColor(UUID player) {
+    public static TextColor getTextColor(String player) {
         String color = getColor(player);
         if (color == null || color.isEmpty()) return null;
         return TextColor.parseColor(color).getOrThrow();

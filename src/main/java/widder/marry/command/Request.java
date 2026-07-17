@@ -36,10 +36,10 @@ public class Request {
         } else if (Objects.equals(source.getPlayer(),target)) {
             source.sendFailure(Component.literal("Sadly, you can't send a request to yourself"));
             return false;
-        } else if (JsonDataManager.isMarried(source.getPlayer().getUUID())) {
+        } else if (JsonDataManager.isMarried(source.getPlayer().getName().getString())) {
             source.sendFailure(Component.literal("You can’t request a marriage if you are already in one"));
             return false;
-        } else if (JsonDataManager.isMarried(target.getUUID())) {
+        } else if (JsonDataManager.isMarried(target.getName().getString())) {
             source.sendFailure(Component.literal("You can’t request someone who is already in a marriage"));
             return false;
         }

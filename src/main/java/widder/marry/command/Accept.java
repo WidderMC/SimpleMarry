@@ -27,7 +27,7 @@ public class Accept {
             source.sendFailure(Component.literal("The Command must be rund by a Player"));
             return 0;
             //Check if Player is in a Marriage
-        } else if (JsonDataManager.isMarried(source.getPlayer().getUUID())) {
+        } else if (JsonDataManager.isMarried(source.getPlayer().getName().getString())) {
             source.sendFailure(Component.literal("You can’t request a marriage if you are already in one"));
             return 0;
             //Check if the Player has put in his own name
@@ -45,7 +45,7 @@ public class Accept {
         }
 
         //Create Marriage
-        JsonDataManager.addMarriage(requester.getUUID(), target.getUUID(),randomColor());
+        JsonDataManager.addMarriage(requester.getName().getString(), target.getName().getString(),randomColor());
 
         //Spawn fireworks and Hearts
         summonFireAndHeart(requester, source.getPlayer());
@@ -53,9 +53,6 @@ public class Accept {
         //Remove from the Request Map
         RequestMap.values().removeIf(UUID -> UUID.equals(source.getPlayer().getUUID()));
         RequestMap.remove(source.getPlayer().getUUID());
-
-        //Announce
-        source.sendSuccess(() -> Component.literal("The Player "+requester.getName()+" and "+target.getName()+" are now Married."),true);
         return 1;
     }
 

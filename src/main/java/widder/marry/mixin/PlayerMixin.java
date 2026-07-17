@@ -16,7 +16,7 @@ public class PlayerMixin {
     @Inject(method = "getDisplayName", at = @At("RETURN"), cancellable = true)
     private void getDisplayNameMixin(CallbackInfoReturnable<Component> info) {
         Player player = (Player)(Object)this;
-        TextColor textColor = JsonDataManager.getTextColor(player.getUUID());
+        TextColor textColor = JsonDataManager.getTextColor(player.getName().getString());
         if (textColor != null) {
             MutableComponent coloredName = Component.literal(player.getGameProfile().name()).withStyle(style -> style.withColor(textColor));
             info.setReturnValue(coloredName);
