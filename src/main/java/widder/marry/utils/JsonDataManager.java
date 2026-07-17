@@ -23,8 +23,9 @@ public class JsonDataManager {
     private static final Path SAVE_FILE = CONFIG_DIR.resolve("marriages.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Type LIST_TYPE = new TypeToken<List<MarriageData>>(){}.getType();
-    private static List<MarriageData> marriages = new ArrayList<>();
+    public static List<MarriageData> marriages = new ArrayList<>();
 
+    //Load config file or create file
     public static void load() {
         try {
             if (Files.notExists(CONFIG_DIR)) {
@@ -45,6 +46,7 @@ public class JsonDataManager {
         }
     }
 
+    //Save data to file
     public static void save() {
         try {
             Files.createDirectories(CONFIG_DIR);
@@ -56,21 +58,25 @@ public class JsonDataManager {
         }
     }
 
+    //Add Marriage to list
     public static void addMarriage(UUID p1, UUID p2, String color) {
         marriages.add(new MarriageData(p1,p2,color));
         save();
     }
 
+    //Remove Marriage from list
     public static boolean removeMarriageByPlayer(UUID player) {
         boolean remove = marriages.removeIf(m -> m.involves(player));
         if (remove) save();
         return remove;
     }
 
+    //Test if Player is in a Marriage
     public static boolean isMarried(UUID player) {
         return getMarriage(player) != null;
     }
 
+    //Get Player Marriage Array
     public static MarriageData getMarriage(UUID player) {
         for (MarriageData m : marriages) {
             if (m.involves(player)) return m;
@@ -78,6 +84,7 @@ public class JsonDataManager {
         return null;
     }
 
+    //Get Player color
     public static String getColor(UUID player) {
         MarriageData m = getMarriage(player);
         if (m != null) {
@@ -87,6 +94,7 @@ public class JsonDataManager {
         }
     }
 
+    //get TextColor from Player
     public static TextColor getTextColor(UUID player) {
         String color = getColor(player);
         if (color == null || color.isEmpty()) return null;
