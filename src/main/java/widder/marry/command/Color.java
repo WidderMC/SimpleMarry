@@ -8,6 +8,7 @@ import widder.marry.utils.JsonDataManager;
 import widder.marry.utils.MarriageData;
 
 import static widder.marry.utils.JsonDataManager.marriages;
+import static widder.marry.utils.JsonDataManager.updatePlayerTab;
 
 public class Color {
 
@@ -36,6 +37,7 @@ public class Color {
             MarriageData m = JsonDataManager.getMarriage(source.getPlayer().getName().getString());
             m.color = "#"+ color;
             JsonDataManager.save();
+            JsonDataManager.updatePlayerTab(source.getServer(),m);
             return 1;
         }else {
             source.sendFailure(Component.literal(color + " isn´t a Hex code"));
