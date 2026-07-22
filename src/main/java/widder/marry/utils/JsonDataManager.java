@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
+import net.minecraft.server.level.ServerPlayer;
 import widder.marry.Marry;
 
 import java.io.IOException;
@@ -101,7 +103,8 @@ public class JsonDataManager {
     }
 
     //Update Tablist
-    public static void updatePlayerTab(net.minecraft.server.MinecraftServer server, MarriageData m) {
+    public static void updatePlayerTab(net.minecraft.server.MinecraftServer server) {
+        /*
         if (m == null) return;
 
         //Update p1
@@ -118,6 +121,12 @@ public class JsonDataManager {
             server.getPlayerList().broadcastAll(new net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket(
                     net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, p2
             ));
+        }
+         */
+
+
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            server.getPlayerList().broadcastAll(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME,player));
         }
     }
 }

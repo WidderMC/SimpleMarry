@@ -37,7 +37,7 @@ public class Color {
             MarriageData m = JsonDataManager.getMarriage(source.getPlayer().getName().getString());
             m.color = "#"+ color;
             JsonDataManager.save();
-            JsonDataManager.updatePlayerTab(source.getServer(),m);
+            JsonDataManager.updatePlayerTab(source.getServer());
             return 1;
         }else {
             source.sendFailure(Component.literal(color + " isn´t a Hex code"));
