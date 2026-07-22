@@ -18,6 +18,7 @@ public class Leave {
         }
         //Remove Marriage
         JsonDataManager.removeMarriageByPlayer(context.getSource().getPlayer().getName().getString());
+        JsonDataManager.updatePlayerTab(context.getSource().getServer());
         context.getSource().sendSuccess(() -> Component.literal("You left the marriage"),false);
         return 1;
     }

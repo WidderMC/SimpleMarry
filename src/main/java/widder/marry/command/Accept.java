@@ -46,6 +46,7 @@ public class Accept {
 
         //Create Marriage
         JsonDataManager.addMarriage(requester.getName().getString(), target.getName().getString(),randomColor());
+        JsonDataManager.updatePlayerTab(source.getServer());
 
         //Spawn fireworks and Hearts
         summonFireAndHeart(requester, source.getPlayer());

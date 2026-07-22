@@ -104,27 +104,6 @@ public class JsonDataManager {
 
     //Update Tablist
     public static void updatePlayerTab(net.minecraft.server.MinecraftServer server) {
-        /*
-        if (m == null) return;
-
-        //Update p1
-        net.minecraft.server.level.ServerPlayer p1 = server.getPlayerList().getPlayerByName(m.player1);
-        if (p1 != null) {
-            server.getPlayerList().broadcastAll(new net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket(
-                    net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, p1
-            ));
-        }
-
-        //Update p2
-        net.minecraft.server.level.ServerPlayer p2 = server.getPlayerList().getPlayerByName(m.player2);
-        if (p2 != null) {
-            server.getPlayerList().broadcastAll(new net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket(
-                    net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, p2
-            ));
-        }
-         */
-
-
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             server.getPlayerList().broadcastAll(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME,player));
         }
