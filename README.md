@@ -1,9 +1,23 @@
-# marry
+# SimpleMarry
 
-## Setup
+### A simple mod that lets you marry other players
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+With this mod, you can marry other players and change the color of your names
 
-## License
+### Commands:
+- /Marry help -> Shows the Help-Page
+- /Marry list -> List all Marriages
+- /Marry request <Player> -> Send a Marry request
+- /Marry accept <Player> -> Accept a Marry request
+- /Marry deny -> Deny a Marry request
+- /Marry color <Hex-Code> -> Change the Name color
+- /Marry leave <Hex-Code> -> Leave your Marriage
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+
+### Future?
+There are some ideas to expand the mod. Maybe I will add them, maybe not.
+- Client-sided support (for name tag color) → Coming soon
+- Children??
+- GUI??
+
+If you find any bugs or have any Datapack/Mod suggestions, please let me know on my [Discord](https://discord.gg/fy4KuxYKVD)
