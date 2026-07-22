@@ -20,6 +20,6 @@ There are some ideas to expand the mod. Maybe I will add them, maybe not.
 - Children??
 - GUI??
 
-## Download on [Modrinth](https://modrinth.com/mod/simplemarry)
+### Download on [Modrinth](https://modrinth.com/mod/simplemarry)
 
 If you find any bugs or have any Datapack/Mod suggestions, please let me know on my [Discord](https://discord.gg/fy4KuxYKVD)
