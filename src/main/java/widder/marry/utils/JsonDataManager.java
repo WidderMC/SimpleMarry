@@ -3,9 +3,11 @@ package widder.marry.utils;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import widder.marry.Marry;
 
@@ -17,7 +19,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JsonDataManager {
     private static final Path CONFIG_DIR  = FabricLoader.getInstance().getConfigDir().resolve(Marry.MOD_ID);
@@ -47,7 +51,7 @@ public class JsonDataManager {
         }
     }
 
-    //Save data to file
+    //Save Marriges to file
     public static void save() {
         try {
             Files.createDirectories(CONFIG_DIR);
@@ -102,10 +106,31 @@ public class JsonDataManager {
         return TextColor.parseColor(color).getOrThrow();
     }
 
-    //Update Tablist
-    public static void updatePlayerTab(net.minecraft.server.MinecraftServer server) {
+    //Update Tab list
+    public static void updatePlayerTab(MinecraftServer server) {
+        //Update Tab list
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             server.getPlayerList().broadcastAll(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME,player));
+        }
+        //Send new broadcastColors
+        JsonDataManager.broadcastColors(server);
+    }
+
+    //Flat Player-Color Map
+    public static Map<String, String> toColorMap() {
+        Map<String, String> colorMap = new HashMap<>();
+        for (MarriageData m : marriages) {
+            colorMap.put(m.player1, m.color);
+            colorMap.put(m.player2, m.color);
+        }
+        return colorMap;
+    }
+
+    //Send ColorMap to every Player
+    public static void broadcastColors(MinecraftServer server) {
+        MarriagePayload payload = new MarriagePayload(toColorMap());
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            ServerPlayNetworking.send(player, payload);
         }
     }
 }
