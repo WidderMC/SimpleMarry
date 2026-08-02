@@ -6,6 +6,9 @@
 		"ServerPlayerMixin",
 		"PlayerMixin"
 	],
+	"client": [
+		"PlayerMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

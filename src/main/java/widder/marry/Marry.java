@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import widder.marry.command.CommandRegistration;
 import widder.marry.utils.JsonDataManager;
+import widder.marry.utils.MarriagePayload;
 
 import static widder.marry.command.Request.RequestMap;
 
@@ -17,11 +18,19 @@ public class Marry implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-		//JasonDataManager to create jason file and save stuff
+		//JasonDataManager to create JSON file and save stuff
 		JsonDataManager.load();
 
-		//RegistCommands
+		//RegisterCommands
 		CommandRegistration.RegistCommand();
+
+		//Register Networking
+		MarriagePayload.register();
+
+		//Send Player Color list to Player
+		ServerPlayConnectionEvents.JOIN.register((listener, sender, server) -> {
+			JsonDataManager.broadcastColors(server);
+		});
 
 		//Remove HashMap´s with the Player how disconnect
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
@@ -32,7 +41,6 @@ public class Marry implements ModInitializer {
 				RequestMap.values().removeIf(UUID -> UUID.equals(player.getUUID()));
 			}
 		});
-
 
 		//Print Info after everything is loaded
 		LOGGER.info("Marry Mod Successfully loaded");
