@@ -1,7 +1,5 @@
 package widder.marry.utils;
 
-import java.util.UUID;
-
 public class MarriageData {
     public String player1;
     public String player2;

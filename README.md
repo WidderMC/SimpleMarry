@@ -16,7 +16,7 @@ With this mod, you can marry other players and change the color of your names
 
 ### Future?
 There are some ideas to expand the mod. Maybe I will add them, maybe not.
-- Client-sided support (for name tag color) → Coming soon
+- Client-sided support (for name tag color) → Done ✅
 - Children??
 - GUI??
 
