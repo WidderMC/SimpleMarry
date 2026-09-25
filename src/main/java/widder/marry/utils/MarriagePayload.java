@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import widder.marry.Marry;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public record MarriagePayload(Map<String,String> data) implements CustomPacketPayload {
@@ -20,12 +21,31 @@ public record MarriagePayload(Map<String,String> data) implements CustomPacketPa
 
     //Read Map from buffer
     public MarriagePayload(FriendlyByteBuf buffer) {
-        this(buffer.readMap(FriendlyByteBuf::readUtf, FriendlyByteBuf::readUtf));
+        this(readMap(buffer));
     }
 
-    //Write Map to buffer
+    //Read buffer manually
+    private static Map<String,String> readMap(FriendlyByteBuf buffer) {
+        int size = buffer.readVarInt();
+        Map<String,String> map = new HashMap<>(size);
+        for (int i = 0; i < size; i++) {
+            String key = buffer.readUtf();
+            String value = buffer.readUtf();
+            map.put(key,value);
+        }
+        return map;
+    }
+
+
+    //Write Map manually to buffer
     public void write(FriendlyByteBuf buffer) {
-        buffer.writeMap(data, FriendlyByteBuf::writeUtf, FriendlyByteBuf::writeUtf);
+        buffer.writeVarInt(data.size());
+        for(Map.Entry<String,String> entry : data.entrySet()) {
+            buffer.writeUtf(entry.getKey());
+            buffer.writeUtf(entry.getValue());
+        }
+
+        //buffer.writeMap(data, FriendlyByteBuf::writeUtf, FriendlyByteBuf::writeUtf);
     }
 
     //Register CustomPayload
